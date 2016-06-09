@@ -32,17 +32,19 @@ if(isset($_POST['btn-place-order']))
 {
     $uid = trim($strFilter);
     $unitPrice = trim($gas_unit_price);
-    $quantity = trim(intval($_POST['qty1']));
-    $vatAmount = trim($_POST['vatAmount']);
-    $finalprice = trim($_POST['final-price']);
-    $firstname = trim($_POST['name']);
-    $lastname = trim($_POST['surname']);
+
+    $quantity = intval($_POST['qty1-name']);
+    $vatAmount = floatval($_POST['vatAmount-name']);
+    $finalprice = floatval($_POST['final-price-name']);
+
+    $firstname = trim($_POST['firstname']);
+    $lastname = trim($_POST['lastname']);
     $tperson = trim($_POST['contactPerson']);
-    $contactNum = trim($_POST['phone']);
+    $contactNum = intval(trim($_POST['phone']));
     $addr1 = trim($_POST['address1']);
     $addr2 = trim($_POST['address2']);
     $city = trim($_POST['city']);
-    $pincode = trim($_POST['zip']);
+    $pincode = intval(trim($_POST['zip']));
 
     $user_home->placeOrder($uid, $unitPrice, $quantity, $vatAmount, $finalprice, $firstname, $lastname, $tperson, $contactNum, $addr1, $addr2, $city, $pincode);
     
@@ -101,7 +103,7 @@ if(isset($_POST['btn-place-order']))
     <!-- CSS Customization -->
     <link rel="stylesheet" href="assets/css/custom.css">
 
-</head>	
+</head> 
 <body id="home" onload="javascript:updateReviewOrder();">
     <div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -154,15 +156,20 @@ if(isset($_POST['btn-place-order']))
                                                 <h3>17 Kg Cylinder</h3>
                                             </div>    
                                         </td>
-                                        <td id="unit-price" ><?php echo $gas_unit_price ?></td>
-                                        <input type="text" name="unit-price" value=<?php echo $gas_unit_price ?> style="display: none;"/>
+                                        <td>
+                                            <span id="unit-price" ><?php echo $gas_unit_price ?></span>
+                                        </td>
                                         <td>
                                             <button type='button' class="quantity-button" name='subtract' onclick='javascript: subtractQty1();' id='subtract' value='-'>-</button>
-                                            <input type='text' class="quantity-field" name='qty1' value="1" id='qty1' disabled />
+                                            <input type='text' class="quantity-field" value="1" id='qty1' disabled />
+                                            <input type='hidden' class="quantity-field" name='qty1-name' value="1" id='qty1-hidden' />
                                             <button type='button' class="quantity-button" name='add' onclick='javascript: addQty1();' value='+'>+</button>
                                         </td>
-                                        <td class="shop-red" id="total-price" ><?php echo $gas_unit_price ?></td>
-                                        <input type="text" name="total-price" value=<?php echo $gas_unit_price ?> style="display:none;">
+                                        <td class="shop-red">
+                                            <span class="shop-red" id="total-price" ><?php echo $gas_unit_price ?></span>
+                                            <input type="hidden" name="total-price-name" id="total-price-input" value=<?php echo $gas_unit_price ?> />
+                                        </td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>
@@ -231,22 +238,14 @@ if(isset($_POST['btn-place-order']))
                                         <h4>Subtotal (Rs):</h4>
                                         <div class="total-result-in">
                                             <span id="subtotal"><?php echo $gas_unit_price ?></span>
-                                            <input type="text" name="subtotal" value=<?php echo $gas_unit_price ?> style="display:none;">
+                                            <input type="hidden" name="subtotal" id="subtotal-input" value=<?php echo $gas_unit_price ?> /">
                                         </div>    
-                                    </li>
-                                    <li style="display: none;">
-                                        <h4>VAT (%)</h4>
-                                        <div class="total-result-in">
-                                            <span id="vat-percent"><?php echo $vat_percent ?></span>
-                                            <input type="text" name="vat-percent" value=<?php echo $vat_percent ?> style="display:none;">
-                                        </div>
                                     </li>
                                     <li>
                                         <h4>VAT (Rs):</h4>
                                         <div class="total-result-in">
                                             <span id="vat" ><?php echo $vat_amount ?></span>
-
-                                            <input id="vatinputfield" type="text" value=<?php echo $vat_amount ?> name="vatAmount" class="form-control required" style="display: none;">
+                                            <input id="vat-input" type="hidden" value=<?php echo $vat_amount ?> name="vatAmount-name" />
                                         </div>    
                                     </li>    
                                     <li>
@@ -255,14 +254,14 @@ if(isset($_POST['btn-place-order']))
                                             <span class="text-right">- - - -</span>
                                         </div>
                                     </li>
-                                    <li class="divider"></li>
                                     <li class="total-price">
                                         <h4>Total (Rs):</h4>
                                         <div class="total-result-in">
                                             <span id="final-price" ><?php echo $total_amount ?></span>
-                                            <input type="text" name="final-price" value=<?php echo $total_amount ?> style="display:none;">
+                                            <input type="hidden" name="final-price-name" id="final-price-input" value=<?php echo $total_amount ?> /">
                                         </div>
                                     </li>
+                                    <li class="divider"></li>
                                 </ul>
                             </div>
                         </div>

@@ -31,8 +31,7 @@ class USER
 	public function register($uname,$email,$upass,$code, $establishmentName, $contactPerson, $mobNumber)
 	{
 		try
-		{	
-			echo "test";						
+		{					
 			$password = md5($upass);
 			$stmt = $this->conn->prepare("INSERT INTO tbl_users(userName,userEmail,userPass,tokenCode, establishmentName, contactPerson, mobNumber) VALUES(:user_name, :user_mail, :user_pass, :active_code, :establishment_name, :contact_person, :mobile_number)");
 
@@ -62,7 +61,7 @@ class USER
 			$stmt->bindparam(":quantity", $quantity);
 			$stmt->bindparam(":vat_amount", $vatAmount);
 			$stmt->bindparam(":final_price", $finalprice);
-			$stmt->bindparam(":first_name", $finalprice);
+			$stmt->bindparam(":first_name", $firstname);
 			$stmt->bindparam(":last_name", $lastname);
 			$stmt->bindparam(":contact_person_order", $tperson);
 			$stmt->bindparam(":contact_number", $contactNum);

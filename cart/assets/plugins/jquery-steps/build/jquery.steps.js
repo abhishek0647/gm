@@ -821,7 +821,7 @@ function refreshPagination(wizard, options, state)
 {
     if (options.enablePagination)
     {
-        var finish = wizard.find(".actions a[href$='#finishthis']").parent(),
+        var finish = wizard.find(".actions a[href$='#order-review']").parent(),
             next = wizard.find(".actions a[href$='#next']").parent();
 
         if (!options.forceMoveForward)
@@ -1067,7 +1067,7 @@ function renderPagination(wizard, options, state)
 
         if (options.enableFinishButton)
         {
-            buttonTemplate = "<li><a href=\"#finishthis\" name=\"btn-place-order\" role=\"menuitem\">{1}</a></li>";
+            buttonTemplate = "<li><a href=\"#order-review\" name=\"btn-place-order\" role=\"menuitem\">{1}</a></li>";
             buttons += buttonTemplate.format("finish", options.labels.finish);
         }
 
@@ -2007,7 +2007,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Finish"
          * @for defaults
          **/
-        finish: "Place Order",
+        finish: "Up",
 
         /**
          * Label for the next button.
