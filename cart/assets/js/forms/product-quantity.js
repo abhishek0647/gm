@@ -14,7 +14,7 @@ function updateReviewOrder() {
         currentYear = newDate.getFullYear();
     }
 
-    var finalText = plainText.concat(quantity.toString(), " gas cylinder(s) by ", currentDate, "-", currentMonth, "-", currentYear, " .<br>Please click 'Place Order' to complete your order.</b><button type='submit' class='btn-u btn-block' name='btn-place-order' id='btn-place-order'>Place Order</button>" );
+    var finalText = plainText.concat(quantity.toString(), " gas cylinder(s) by ", currentDate, "-", currentMonth, "-", currentYear, " .<br>Please click 'Place Order' to complete your order.</b><br><button type='submit' class='btn-u btn-block' name='btn-place-order' id='btn-place-order' style='margin-top: 30px; width:10%;'>Place Order</button>" );
 
     document.getElementById('order-review').innerHTML = finalText;
 }
