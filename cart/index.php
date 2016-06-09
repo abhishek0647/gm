@@ -103,7 +103,11 @@ if(isset($_POST['btn-place-order']))
     <!-- CSS Customization -->
     <link rel="stylesheet" href="assets/css/custom.css">
 
+<<<<<<< HEAD
 </head>	
+=======
+</head> 
+>>>>>>> 312cff3c1fc1f7d96ec6abd9cf626400568c2e6e
 <body id="home" onload="javascript:updateReviewOrder();">
     <div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
