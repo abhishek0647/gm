@@ -22,8 +22,8 @@ if(isset($_POST['btn-signup']))
     $mobnum = trim($_POST['txtmobnum']);
     $code = md5(uniqid(rand()));
     
-    $stmt = $reg_user->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id");
-    $stmt->execute(array(":email_id"=>$email));
+    $stmt = $reg_user->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id OR userName=:user_name");
+    $stmt->execute(array(":email_id"=>$email, ":user_name"=>$uname));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
     
@@ -32,7 +32,7 @@ if(isset($_POST['btn-signup']))
         $msg = "
               <div class='alert alert-error' align='text-center'>
                 <!-- <button class='close' data-dismiss='alert'>&times;</button> -->
-                    <strong>Sorry !</strong>  Email allready exists , Please Try another one
+                    <strong>Sorry !</strong> Username/Email already exists, please try another one
               </div>
               ";
     }
@@ -127,15 +127,19 @@ if(isset($_POST['btn-signup']))
             </div>
             <div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input type="email" class="form-control" placeholder="Email" name="txtemail" required>
+                <input type="email" class="form-control" placeholder="Email" name="txtemail" onblur="javascript: validateEmail();" required>
+                <span id="email-correct" class="input-group-addon" style="display: none;"><i class="fa fa-check" style="color:green;"></i></span>
+                <span id="email-wrong" class="input-group-addon" style="display: none;"><i class="fa fa-close" style="color:red;"></i></span>
             </div>
             <div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" placeholder="Password" name="txtpass" required>
+                <input type="password" class="form-control" placeholder="Password" name="txtpass" onblur="javascript: validatePassword();" required>
             </div>
             <div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="password" class="form-control" placeholder="Confirm Password" required>
+                <input type="password" class="form-control" placeholder="Confirm Password" name="txtconfirmpass" onblur="javascript: validatePassword();" required>
+                <span id="confirm-password-correct" class="input-group-addon" style="display: none;"><i class="fa fa-check" style="color:green;"></i></span>
+                <span id="confirm-password-wrong" class="input-group-addon" style="display: none;"><i class="fa fa-close" style="color:red;"></i></span>
             </div>
             <div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="fa fa-university"></i></span>
@@ -147,7 +151,9 @@ if(isset($_POST['btn-signup']))
             </div>
             <div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                <input type="text" class="form-control" placeholder="Mobile Number" name="txtmobnum" required>
+                <input type="text" class="form-control" placeholder="Mobile Number" name="txtmobnum" onblur="javascript: validatePhoneNumber();" required>
+                <span id="phone-correct" class="input-group-addon" style="display: none;"><i class="fa fa-check" style="color:green;"></i></span>
+                <span id="phone-wrong" class="input-group-addon" style="display: none;"><i class="fa fa-close" style="color:red;"></i></span>
             </div>
             <hr>
 
@@ -173,6 +179,7 @@ if(isset($_POST['btn-signup']))
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-migrate.min.js"></script>
 <script type="text/javascript" src="js/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/myjs.js"></script>
 <!-- JS Implementing Plugins -->
 <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
 <!-- JS Customization -->
@@ -181,8 +188,11 @@ if(isset($_POST['btn-signup']))
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
+
         App.init();
         $('[data-toggle="tooltip"]').tooltip();
+
+
     });
 </script>
 <script type="text/javascript">
@@ -194,6 +204,7 @@ if(isset($_POST['btn-signup']))
         duration: 7000
     });
 </script>
+
 <!--[if lt IE 9]>
     <script src="assets/plugins/respond.js"></script>
     <script src="assets/plugins/html5shiv.js"></script>
