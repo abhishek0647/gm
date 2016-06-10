@@ -166,7 +166,7 @@ if(isset($_POST['btn-signup']))
 
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <button type="submit" class="btn-u btn-block" name="btn-signup">Register</button>
+                    <button type="submit" class="btn-u btn-block" name="btn-signup" id="register-btn">Register</button>
                 </div>
             </div>
         </form>
