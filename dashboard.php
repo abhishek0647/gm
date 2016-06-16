@@ -17,6 +17,20 @@ $strFilter = strval($filterCondition);
 
 $sth = $user_home->runQuery("SELECT unitPrice, quantity, finalprice, tdate FROM tbl_orders where uid =$strFilter");
 $sth->execute();
+
+if(isset($_POST['btn-send-mail']))
+{
+	$contactUsName  = trim($_POST['contact-us-name']);
+	$contactUsEmail = trim($_POST['contact-us-email']);
+	$contactUsText  = trim($_POST['contact-us-message']);
+
+	$to = "abhishek0647@gmail.com";
+	$subject = "GasMarket Contact Us";
+	$txt = "Name : " + $contactUsName + " Email : " + $contactUsEmail + " Content : " + $contactUsText;
+	$headers = "From: abhishek0647@gmail.com";
+
+	mail($to,$subject,$txt,$headers);
+
 ?>
 
 <!doctype html>
@@ -158,62 +172,7 @@ $sth->execute();
 									printf("<tr><td class='text-left vert-align'>17 Kg Cylinder</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td></tr>", $rows["unitPrice"], $rows["quantity"], $rows["finalprice"], substr($rows["tdate"],0, 10));
 								}
 							?>
-							<!-- <tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Processing</td>
-							</tr>							
-							<tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Delivered</td>
-							</tr>
-							<tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Processing</td>
-							</tr>							
-							<tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Delivered</td>
-							</tr>
-							<tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Processing</td>
-							</tr>							
-							<tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Delivered</td>
-							</tr>
-							<tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Processing</td>
-							</tr>							
-							<tr>
-							  <td class="text-left vert-align">19 Kg Cylinder</td>
-							  <td class="text-left vert-align">700</td>
-							  <td class="text-left vert-align">5</td>
-							  <td class="text-left vert-align">3500</td>
-							  <td class="text-left vert-align">Delivered</td>
-							</tr> -->
+
 							<tr>
 								<td></td>
 								<td></td>
@@ -223,16 +182,11 @@ $sth->execute();
 						  </tbody>
 						</table>
 					</div>	
-
-
-
 				</div>
-					</form>
+				</form>
 
 			</div>
 		</section>
-
-
 
 	        <!-- Flat Testimonials -->
 	        <div class="flat-testimonials bg-image-v1 parallaxBg1 margin-bottom-60" id="testimonial">
@@ -561,13 +515,13 @@ $sth->execute();
 	                </div>
 
 	                <div class="col-md-6">
-	                    <form action="send-mail.php" method="post" id="sky-form3" class="sky-form contact-style">
+	                    <form method="post" id="sky-form3" class="sky-form contact-style">
 	                        <fieldset>
 	                            <label>Name <span class="color-red">*</span></label>
 	                            <div class="row">
 	                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
 	                                    <div>
-	                                        <input type="text" name="name" id="name" class="form-control" required>
+	                                        <input type="text" name="contact-us-name" id="name" class="form-control" required>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -576,7 +530,7 @@ $sth->execute();
 	                            <div class="row">
 	                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
 	                                    <div>
-	                                        <input type="text" name="email" id="email" class="form-control" required>
+	                                        <input type="text" name="contact-us-email" id="email" class="form-control" required>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -585,12 +539,12 @@ $sth->execute();
 	                            <div class="row">
 	                                <div class="col-md-11 margin-bottom-20 col-md-offset-0">
 	                                    <div>
-	                                        <textarea rows="8" name="message" id="message" class="form-control" required></textarea>
+	                                        <textarea rows="8" name="contact-us-message" id="message" class="form-control" required></textarea>
 	                                    </div>
 	                                </div>
 	                            </div>
 
-	                            <p><button type="submit" class="btn-u btn-brd btn-brd-hover btn-u-dark">Send Message</button></p>
+	                            <p><button type="submit" class="btn-u btn-brd btn-brd-hover btn-u-dark" name="btn-send-mail">Send Message</button></p>
 	                        </fieldset>
 
 	                        <div class="message">
