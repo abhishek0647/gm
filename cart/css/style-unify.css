@@ -1400,6 +1400,10 @@ ul.labels-demo li {
 	background: #555;
 }
 
+.banner-info.green i {
+	background: #72c02c;
+}
+
 .banner-info h3 {
 	font-size: 21px;
 	margin-bottom: 5px;
