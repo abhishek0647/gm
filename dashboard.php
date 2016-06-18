@@ -26,10 +26,14 @@ if(isset($_POST['btn-send-mail']))
 
 	$to = "abhishek0647@gmail.com";
 	$subject = "GasMarket Contact Us";
-	$txt = "Name : " + $contactUsName + " Email : " + $contactUsEmail + " Content : " + $contactUsText;
+	// $txt = "Name : " + $contactUsName + " Email : " + $contactUsEmail + " Content : " + $contactUsText;
+	$txt = "Testing Email Feature";
 	$headers = "From: abhishek0647@gmail.com";
 
 	mail($to,$subject,$txt,$headers);
+
+	$user_home->redirect('dashboard.php');
+}
 
 ?>
 
