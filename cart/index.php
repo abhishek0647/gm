@@ -182,8 +182,8 @@ if(isset($_POST['btn-place-order']))
                     
                     <div class="header-tags">
                         <div class="overflow-h">
-                            <h2>Billing info</h2>
-                            <p>Shipping and address info</p>
+                            <h2>Billing Info</h2>
+                            <p>Billing & Shipping address info</p>
                             <i class="rounded-x fa fa-home"></i>
                         </div>    
                     </div>

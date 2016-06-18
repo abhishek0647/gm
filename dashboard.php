@@ -126,7 +126,7 @@ if(isset($_POST['btn-send-mail']))
 					<div class="col-lg-5 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center wow fadeInUp">
 						<img id="logo" src="img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300">
 						<h1>Welcome to <span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
-						<h2>Pocket friendly, simplified and hassle-free gas delivery service</h2>
+						<h2>Order Commercial LPG Online</h2><h3>No Deposit | Lower Prices | Lower Gas Consumption | Hassle Free</h3>
 
 						<!-- <a class="btn btn-store smooth-scroll" href="#order-history">My Orders</a> -->
 						<a class="btn btn-store smooth-scroll" href="cart/index.php">Order Now</a>
@@ -182,6 +182,7 @@ if(isset($_POST['btn-send-mail']))
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 							</tr>
 						  </tbody>
 						</table>
@@ -197,7 +198,7 @@ if(isset($_POST['btn-send-mail']))
 	            <div class="container">
 	                <div class="headline-center headline-light margin-bottom-60">
 	                    <h2>What People Are Saying</h2>
-	                    <p>Integer odio ligula, tincidunt id volutpat et, imperdiet eget mi. Quisque laoreet porttitor turpis sed <a href="#">fermentum</a>. Nullam sodales blandit nisi, tristique tempor nunc hendrerit at. Sed posuere mollis orci</p>
+	                    <p>Integer odio ligula, tincidunt id volutpat et, imperdiet eget mi. Quisque laoreet porttitor turpis sed. Nullam sodales blandit nisi, tristique tempor nunc hendrerit at. Sed posuere mollis orci</p>
 	                </div><!--/end Headline Center-->
 
 	                <div class="row">
@@ -234,10 +235,34 @@ if(isset($_POST['btn-send-mail']))
 	        <div class="container" id="about-us">
 	            <div class="headline-center margin-bottom-60">
 	                <h2>About Us</h2>
-	                <p>GasMarket is a part of ‘Mktplace Ecom’, a Bangalore based B2B E-Commerce Company. GasMarket is India’s 1st commercial gas ordering portal focused on supplying commercial cooking gas (LPG) to Foods & Beverages (F&B) businesses in a cost effective, energy efficient & reliable way.</p>
-					<p>GasMarket currently operates in Bangalore & plans to soon expand to other parts of India to take its value proposition to maximum F&B and other businesses nationwide.</p>
-					<p>GasMarket is backed by a team of seasoned entrepreneurs & hospitality industry professionals who have deep understanding of the pain points of managing the gambit of cooking gas; one of the biggest costs for any F&B business.</p>
-					<p>Although our main focus is on F&B businesses, we remain committed to supplying commercial cooking gas to other business establishments consuming commercial cooking gas offering them the same value proposition.</p>
+	               </div>
+	                <div class="row">
+	                    <div class="banner-info green margin-bottom-10">
+	                        <i class="rounded-x fa fa-bookmark-o"></i>
+	                        <div class="overflow-h">
+	                            <p>GasMarket is a part of ‘Mktplace Ecom’, a Bangalore based B2B E-Commerce Company. GasMarket is India’s 1st commercial gas ordering portal focused on supplying commercial cooking gas (LPG) to Foods & Beverages (F&B) businesses in a cost effective, energy efficient & reliable way.</p>
+	                        </div>
+	                    </div>
+	                    <div class="banner-info green margin-bottom-10">
+	                        <i class="rounded-x fa fa-bookmark-o"></i>
+	                        <div class="overflow-h">
+	                            <p>GasMarket currently operates in Bangalore & plans to soon expand to other parts of India to take its value proposition to maximum F&B and other businesses nationwide.</p>
+	                        </div>
+	                    </div>
+	                    <div class="banner-info green margin-bottom-10">
+	                        <i class="rounded-x fa fa-bookmark-o"></i>
+	                        <div class="overflow-h">
+	                            <p>GasMarket is backed by a team of seasoned entrepreneurs & hospitality industry professionals who have deep understanding of the pain points of managing the gambit of cooking gas; one of the biggest costs for any F&B business.</p>
+	                        </div>
+	                    </div>
+	                    <div class="banner-info green margin-bottom-10">
+	                        <i class="rounded-x fa fa-bookmark-o"></i>
+	                        <div class="overflow-h">
+	                            <p>Although our main focus is on F&B businesses, we remain committed to supplying commercial cooking gas to other business establishments consuming commercial cooking gas offering them the same value proposition.</p>
+	                        </div>
+	                    </div>
+	                    <div class="margin-bottom-20"></div>
+            		</div>
 	            </div><!--/end Headline Center-->
 	        </div>
 
@@ -249,9 +274,9 @@ if(isset($_POST['btn-send-mail']))
 	                    <p>GasMarket is a simple way for businesses to procure commercial LPG cooking gas online. Simple & painless:</p>
 	                </div><!--/end Headline Center-->
 
-			        <div class="container content-sm">
+			        <div class="container content-sm col-sm-offset-3 col-sm-6">
 				        <div class="row">
-				            <div class="col-sm-6 content-boxes-v3 content-boxes-v3-right sm-margin-bottom-30">
+				            <div class="col-sm-12 content-boxes-v3 sm-margin-bottom-30">
 				                <div class="margin-bottom-30">
 				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
 				                    <div class="content-boxes-in-v3">
@@ -260,9 +285,9 @@ if(isset($_POST['btn-send-mail']))
 				                    </div>
 				                </div>
 				            </div>
-				            <div class="col-sm-6 content-boxes-v3">
+				            <div class="col-sm-12 content-boxes-v3">
 				                <div class="clearfix margin-bottom-30">
-				                    <i class="icon-custom icon-md rounded-x icon-bg-darker icon-line icon-trophy"></i>
+				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
 				                    <div class="content-boxes-in-v3">
 				                        <h2 class="heading-sm">Step 2: </h2>
 				                        <p>Our representatives will get in touch with-in 24 hours</p>
@@ -270,7 +295,7 @@ if(isset($_POST['btn-send-mail']))
 				                </div>
 				            </div>
 
-				            <div class="col-sm-6 content-boxes-v3 content-boxes-v3-right sm-margin-bottom-30">
+				            <div class="col-sm-12 content-boxes-v3 sm-margin-bottom-30">
 				                <div class="margin-bottom-30">
 				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
 				                    <div class="content-boxes-in-v3">
@@ -279,9 +304,9 @@ if(isset($_POST['btn-send-mail']))
 				                    </div>
 				                </div>
 				            </div>
-				            <div class="col-sm-6 content-boxes-v3">
+				            <div class="col-sm-12 content-boxes-v3">
 				                <div class="clearfix margin-bottom-30">
-				                    <i class="icon-custom icon-md rounded-x icon-bg-darker icon-line icon-trophy"></i>
+				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
 				                    <div class="content-boxes-in-v3">
 				                        <h2 class="heading-sm">Step 4: </h2>
 				                        <p>That’s it, you can start placing your orders online & see order history through your own personalized dashboard!</p>
@@ -513,7 +538,7 @@ if(isset($_POST['btn-send-mail']))
 	                <div class="col-md-6 md-margin-bottom-40">
 	                    <ul class="list-unstyled">
 	                        <li><i class="fa fa-phone"></i> (+91) 98452 85084</li>
-	                        <li><i class="fa fa-envelope"></i> <a href="abhishek@mktplace.in">abhishek@mktplace.in</a></li>
+	                        <li><i class="fa fa-envelope"></i> <a href="mailto:abhishek@mktplace.in">abhishek@mktplace.in</a></li>
 	                        <li><i class="fa fa-globe"></i> <a href="#">www.gasmarket.in</a></li>
 	                    </ul>
 	                </div>
