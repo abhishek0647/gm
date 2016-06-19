@@ -51,6 +51,27 @@ class USER
 		}
 	}
 
+	public function registerAdmin($uname,$email,$upass,$code,$mobnum)
+	{
+		try
+		{					
+			$password = md5($upass);
+			$stmt = $this->conn->prepare("INSERT INTO tbl_admin(userName,userEmail,userPass,tokenCode,mobNumber) VALUES(:user_name, :user_mail, :user_pass, :active_code, :mobile_number)");
+
+			$stmt->bindparam(":user_name",$uname);
+			$stmt->bindparam(":user_mail",$email);
+			$stmt->bindparam(":user_pass",$password);
+			$stmt->bindparam(":active_code",$code);
+			$stmt->bindparam(":mobile_number",$mobnum);
+			$stmt->execute();	
+			return $stmt;
+		}
+		catch(PDOException $ex)
+		{
+			echo $ex->getMessage();
+		}
+	}
+
 	public function placeOrder($uid, $unitPrice, $quantity, $vatAmount, $finalprice, $firstname, $lastname, $tperson, $contactNum, $addr1, $addr2, $city, $pincode) {
 
 		try {
@@ -82,6 +103,47 @@ class USER
 		try
 		{
 			$stmt = $this->conn->prepare("SELECT * FROM tbl_users WHERE userEmail=:email_id");
+			$stmt->execute(array(":email_id"=>$email));
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+			
+			if($stmt->rowCount() == 1)
+			{
+				if($userRow['userStatus']=="Y")
+				{
+					if($userRow['userPass']==md5($upass))
+					{
+						$_SESSION['userSession'] = $userRow['userID'];
+						return true;
+					}
+					else
+					{
+						header("Location: login.php?error");
+						exit;
+					}
+				}
+				else
+				{
+					header("Location: login.php?inactive");
+					exit;
+				}	
+			}
+			else
+			{
+				header("Location: login.php?error");
+				exit;
+			}		
+		}
+		catch(PDOException $ex)
+		{
+			echo $ex->getMessage();
+		}
+	}
+
+	public function adminlogin($email,$upass)
+	{
+		try
+		{
+			$stmt = $this->conn->prepare("SELECT * FROM tbl_admin WHERE userEmail=:email_id");
 			$stmt->execute(array(":email_id"=>$email));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			

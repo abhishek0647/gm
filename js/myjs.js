@@ -3,7 +3,7 @@ function submitButtonActivator() {
 	var phoneNumberPattern = /^[0-9]{10}$/;
 
 	if(emailPattern.test($('input[name="txtemail"]').val()) && $('input[name="txtpass"]').val() == $('input[name="txtconfirmpass"]').val() && phoneNumberPattern.test($('input[name="txtmobnum"]').val())) {
-			$('#register-btn').prop('disabled', false);
+		$('#register-btn').prop('disabled', false);
 	}
 	else {
 		$('#register-btn').prop('disabled', true);
