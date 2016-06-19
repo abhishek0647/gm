@@ -821,7 +821,7 @@ function refreshPagination(wizard, options, state)
 {
     if (options.enablePagination)
     {
-        var finish = wizard.find(".actions a[href$='#order-review']").parent(),
+        var finish = wizard.find(".actions a[href$='#our-vision']").parent(),
             next = wizard.find(".actions a[href$='#next']").parent();
 
         if (!options.forceMoveForward)
@@ -1063,11 +1063,12 @@ function renderPagination(wizard, options, state)
             buttons += buttonTemplate.format("previous", options.labels.previous);
         }
 
+        buttonTemplate = "<li><a href=\"#{0}\" name=\"next-btn\" role=\"menuitem\">{1}</a></li>";
         buttons += buttonTemplate.format("next", options.labels.next);
 
         if (options.enableFinishButton)
         {
-            buttonTemplate = "<li><a href=\"#order-review\" name=\"btn-place-order\" role=\"menuitem\">{1}</a></li>";
+            buttonTemplate = "<li><a href=\"#our-vision\" name=\"btn-place-order\" role=\"menuitem\">{1}</a></li>";
             buttons += buttonTemplate.format("finish", options.labels.finish);
         }
 

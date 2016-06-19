@@ -103,11 +103,8 @@ if(isset($_POST['btn-place-order']))
     <!-- CSS Customization -->
     <link rel="stylesheet" href="assets/css/custom.css">
 
-<<<<<<< HEAD
 </head>	
-=======
-</head> 
->>>>>>> 312cff3c1fc1f7d96ec6abd9cf626400568c2e6e
+
 <body id="home" onload="javascript:updateReviewOrder();">
     <div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -195,21 +192,25 @@ if(isset($_POST['btn-place-order']))
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <input id="name" type="text" placeholder="First Name" name="firstname" class="form-control required">
-                                            <input id="surname" type="text" placeholder="Last Name" name="lastname" class="form-control required">
                                         </div>
                                         <div class="col-sm-6">
                                             <input id="contactPerson" type="text" placeholder="Contact Person" name="contactPerson" class="form-control required">
-                                            <input id="phone" type="tel" placeholder="Phone" name="phone" class="form-control required">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="surname" type="text" placeholder="Last Name" name="lastname" class="form-control required">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="phone" type="tel" placeholder="Phone" name="phone" onblur="javascript: validatePhoneNumber();" class="form-control required">
                                         </div>
                                     </div>
                                     <input id="billingAddress" type="text" placeholder="Address Line 1" name="address1" class="form-control required">
-                                    <input id="billingAddress2" type="text" placeholder="Address Line 2" name="address2" class="form-control required">
+                                    <input id="billingAddress2" type="text" placeholder="Address Line 2" name="address2" class="form-control">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <input id="city" type="text" placeholder="City" name="city" class="form-control required">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input id="zip" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control required">
+                                            <input id="zip" type="text" placeholder="Zip/Postal Code" name="zip" onblur="javascript: validateZip();" class="form-control required">
                                         </div>
                                     </div>
                                 </div>
@@ -372,8 +373,45 @@ if(isset($_POST['btn-place-order']))
         Login.initLogin();
         App.initScrollBar();        
         StepWizard.initStepWizard();
-        StyleSwitcher.initStyleSwitcher();      
+        StyleSwitcher.initStyleSwitcher();
     });
+</script>
+<script type="text/javascript">
+    function submitButtonActivator() {
+        var phoneNumberPattern = /^[0-9]{10}$/;
+        var zipPattern = /^[0-9]{6}$/;
+
+        if(zipPattern.test($('input[name="zip"]').val()) && phoneNumberPattern.test($('input[name="phone"]').val())) {
+            $('#steps-uid-0 > div:nth-child(3) > ul > li:nth-child(2) > a').attr('href', '#next');
+        }
+        else {
+            $('#steps-uid-0 > div:nth-child(3) > ul > li:nth-child(2) > a').attr('href', '#');
+        }
+    }
+
+    function validatePhoneNumber() {
+        var pattern = /^[0-9]{10}$/;
+        if(! pattern.test($('input[name="phone"]').val())) {
+            $('input[name="phone"]').css('border-color', '#8a1f11');
+            submitButtonActivator();
+        }
+        else {
+            $('input[name="phone"]').css('border-color', '');   
+            submitButtonActivator();
+        }
+    }
+
+    function validateZip() {
+        var pattern=/^[0-9]{6}$/;
+        if(! pattern.test($('input[name="zip"]').val())) {
+            $('input[name="zip"]').css('border-color', '#8a1f11');
+            submitButtonActivator();
+        }
+        else {
+            $('input[name="zip"]').css('border-color', '');
+            submitButtonActivator();
+        }
+    }
 </script>
 
 <!--[if lt IE 9]>
