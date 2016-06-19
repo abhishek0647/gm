@@ -1,20 +1,27 @@
 function updateReviewOrder() {
     var plainText = "<b>Thank you for using GasMarket. We will deliver your order of ";
-    var quantity = document.getElementById('qty1').value;
-    var currentTime = new Date();
-    var currentDate = currentTime.getDate();
-    var currentMonth = currentTime.getMonth() + 1;
-    var currentYear = currentTime.getFullYear();
+    var quantity = document.getElementById('qty1').value;    
 
-    if( currentTime.getHours() > 12){
-        currentTime = currentTime + 24 * 60 * 60 * 1000;
-        var newDate = new Date(currentTime);
-        currentDate = newDate.getDate();
-        currentMonth = newDate.getMonth() + 1;
-        currentYear = newDate.getFullYear();
+    var currentTime = new Date();
+
+    var currentOffset = currentTime.getTimezoneOffset();
+
+    var ISTOffset = 330;   // IST offset UTC +5:30 
+
+    var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+    if(ISTTime.getHours() > 12) {
+        deliveryTime = newDate(ISTTime + 24 * 60 * 60 * 1000);
+    }
+    else {
+        deliveryTime = ISTTime;
     }
 
-    var finalText = plainText.concat(quantity.toString(), " gas cylinder(s) by ", currentDate, "-", currentMonth, "-", currentYear, " .<br>Please click 'Place Order' to complete your order.</b><br><button type='submit' class='btn-u btn-block' name='btn-place-order' id='btn-place-order' style='margin-top: 30px; width:10%;'>Place Order</button>" );
+    deliveryDate = deliveryTime.getDate();
+    deliveryMonth = deliveryTime.getMonth() + 1;
+    deliveryYear = deliveryTime.getFullYear();
+
+    var finalText = plainText.concat(quantity.toString(), " gas cylinder(s) by ", deliveryDate, "-", deliveryMonth, "-", deliveryYear, " .<br>Please click 'Place Order' to complete your order.</b><br><button type='submit' class='btn-u btn-block' name='btn-place-order' id='btn-place-order' style='margin-top: 30px; width:125px;'>Place Order</button>" );
 
     document.getElementById('order-review').innerHTML = finalText;
 }
