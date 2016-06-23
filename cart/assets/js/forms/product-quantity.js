@@ -11,15 +11,14 @@ function updateReviewOrder() {
     var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
 
     if(ISTTime.getHours() > 12) {
-        deliveryTime = newDate(ISTTime + 24 * 60 * 60 * 1000);
+        deliveryDate = ISTTime.getDate() + 1;
     }
     else {
-        deliveryTime = ISTTime;
+        deliveryDate = ISTTime.getDate();
     }
 
-    deliveryDate = deliveryTime.getDate();
-    deliveryMonth = deliveryTime.getMonth() + 1;
-    deliveryYear = deliveryTime.getFullYear();
+    deliveryMonth = ISTTime.getMonth() + 1;
+    deliveryYear = ISTTime.getFullYear();
 
     var finalText = plainText.concat(quantity.toString(), " gas cylinder(s) by ", deliveryDate, "-", deliveryMonth, "-", deliveryYear, " .<br>Please click 'Place Order' to complete your order.</b><br><button type='submit' class='btn-u btn-block' name='btn-place-order' id='btn-place-order' style='margin-top: 30px; width:125px;'>Place Order</button>" );
 

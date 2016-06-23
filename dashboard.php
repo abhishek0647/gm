@@ -18,22 +18,22 @@ $strFilter = strval($filterCondition);
 $sth = $user_home->runQuery("SELECT unitPrice, quantity, finalprice, tdate FROM tbl_orders where uid =$strFilter");
 $sth->execute();
 
-if(isset($_POST['btn-send-mail']))
-{
-	$contactUsName  = trim($_POST['contact-us-name']);
-	$contactUsEmail = trim($_POST['contact-us-email']);
-	$contactUsText  = trim($_POST['contact-us-message']);
+// if(isset($_POST['btn-send-mail']))
+// {
+// 	$contactUsName  = trim($_POST['contact-us-name']);
+// 	$contactUsEmail = trim($_POST['contact-us-email']);
+// 	$contactUsText  = trim($_POST['contact-us-message']);
 
-	$to = "abhishek0647@gmail.com";
-	$subject = "GasMarket Contact Us";
-	// $txt = "Name : " + $contactUsName + " Email : " + $contactUsEmail + " Content : " + $contactUsText;
-	$txt = "Testing Email Feature";
-	$headers = "From: abhishek0647@gmail.com";
+// 	$to = "abhishek0647@gmail.com";
+// 	$subject = "GasMarket Contact Us";
+// 	// $txt = "Name : " + $contactUsName + " Email : " + $contactUsEmail + " Content : " + $contactUsText;
+// 	$txt = "Testing Email Feature";
+// 	$headers = "From: abhishek0647@gmail.com";
 
-	mail($to,$subject,$txt,$headers);
+// 	mail($to,$subject,$txt,$headers);
 
-	$user_home->redirect('dashboard.php');
-}
+// 	$user_home->redirect('dashboard.php');
+// }
 
 ?>
 
@@ -109,7 +109,7 @@ if(isset($_POST['btn-send-mail']))
 				<div class="collapse navbar-collapse">
 					<ul id="navigation" class="nav navbar-nav navbar-right text-center">
 						<li><a href="#order-history">My Orders</a></li>
-						<li><a href="#testimonial">Testimonials</a></li>
+						<!-- <li><a href="#testimonial">Testimonials</a></li> -->
 						<li><a href="#about-us">About Us</a></li>
 						<li><a href="#how-it-works">How It Works</a></li>
 						<li><a href="#faq">FAQs</a></li>
@@ -193,13 +193,14 @@ if(isset($_POST['btn-send-mail']))
 			</div>
 		</section>
 
+		<hr>
 	        <!-- Flat Testimonials -->
-	        <div class="flat-testimonials bg-image-v1 parallaxBg1 margin-bottom-60" id="testimonial">
+	        <!-- <div class="flat-testimonials bg-image-v1 parallaxBg1 margin-bottom-60" id="testimonial">
 	            <div class="container">
 	                <div class="headline-center headline-light margin-bottom-60">
 	                    <h2>What People Are Saying</h2>
 	                    <p>Integer odio ligula, tincidunt id volutpat et, imperdiet eget mi. Quisque laoreet porttitor turpis sed. Nullam sodales blandit nisi, tristique tempor nunc hendrerit at. Sed posuere mollis orci</p>
-	                </div><!--/end Headline Center-->
+	                </div>
 
 	                <div class="row">
 	                    <div class="col-sm-4">
@@ -226,9 +227,9 @@ if(isset($_POST['btn-send-mail']))
 	                            <p>Proin et augue vel nisi rhoncus tincidunt. Cras venenatis, magna id sem ipsum mi interduml</p>
 	                        </div>
 	                    </div>
-	                </div><!--/end row-->
-	            </div><!--/end container-->
-	        </div>
+	                </div>
+	            </div>
+	        </div> -->
 	        <!-- End Flat Testimonials -->
 
 
@@ -544,7 +545,7 @@ if(isset($_POST['btn-send-mail']))
 	                </div>
 
 	                <div class="col-md-6">
-	                    <form method="post" id="sky-form3" class="sky-form contact-style">
+	                    <form action="send-mail.php" method="post" id="sky-form3" class="sky-form contact-style">
 	                        <fieldset>
 	                            <label>Name <span class="color-red">*</span></label>
 	                            <div class="row">

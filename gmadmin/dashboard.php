@@ -5,35 +5,30 @@ $user_home = new USER();
 
 if(!$user_home->is_logged_in())
 {
-	$user_home->redirect('index.html');
+	$user_home->redirect('index.php');
 }
 
-$stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
-$stmt->execute(array(":uid"=>$_SESSION['userSession']));
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-$filterCondition = $_SESSION['userSession'];
-$strFilter = strval($filterCondition);
-
-$sth = $user_home->runQuery("SELECT unitPrice, quantity, finalprice, tdate FROM tbl_orders where uid =$strFilter");
+$sth = $user_home->runQuery("SELECT unitPrice, quantity, finalprice, tdate FROM tbl_orders");
 $sth->execute();
 
-if(isset($_POST['btn-send-mail']))
-{
-	$contactUsName  = trim($_POST['contact-us-name']);
-	$contactUsEmail = trim($_POST['contact-us-email']);
-	$contactUsText  = trim($_POST['contact-us-message']);
+// if(isset($_POST['btn-update-lpg-price']))
+// {
+// 	$lpgCylinderPrice = trim($_POST['lpg-cylinder-price']);
 
-	$to = "abhishek0647@gmail.com";
-	$subject = "GasMarket Contact Us";
-	// $txt = "Name : " + $contactUsName + " Email : " + $contactUsEmail + " Content : " + $contactUsText;
-	$txt = "Testing Email Feature";
-	$headers = "From: abhishek0647@gmail.com";
+// 	$lpgUpdate = $user_home->runQuery("UPDATE `tbl_product_prices` SET `gas_unit_price`=$lpgCylinderPrice WHERE 1");
+// 	$lpgUpdate->execute();
 
-	mail($to,$subject,$txt,$headers);
+// 	$user_home->redirect('dashboard.php');
+// }
 
-	$user_home->redirect('dashboard.php');
-}
+// if(isset($_POST('btn-update-vat-percentage'))) {
+// 	$vatPercentage = trim($_POST['vat-percentage']);
+
+// 	$vatPercentageUpdate = $user_home->runQuery("UPDATE `tbl_product_prices` SET `vat_percent`=$vatPercentage WHERE 1");
+// 	$vatPercentageUpdate->execute();
+
+// 	$user_home->redirect('dashboard.php');
+// }
 
 ?>
 
@@ -42,14 +37,14 @@ if(isset($_POST['btn-send-mail']))
 	<head>
 		<title>GasMarket.In</title>
 		<meta charset="utf-8">
-		<meta name="description" content="MicroStore Responsive HTML5/CSS3 Template from angelostudio.net">
-		<meta name="author" content="ANGELOSTUDIO.NET">
+		<meta name="description" content="Gas market online gas delivery portal">
+		<meta name="author" content="GasMarket Team">
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	    <!-- Web Fonts -->
 	    <!--<link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
 		-->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
 
 		
 	    <!-- CSS Footer -->
@@ -108,15 +103,9 @@ if(isset($_POST['btn-send-mail']))
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul id="navigation" class="nav navbar-nav navbar-right text-center">
-						<li><a href="#order-history">My Orders</a></li>
-						<li><a href="#testimonial">Testimonials</a></li>
-						<li><a href="#about-us">About Us</a></li>
-						<li><a href="#how-it-works">How It Works</a></li>
-						<li><a href="#faq">FAQs</a></li>
-						<li><a href="#contact">Contact Us</a></li>
+						<li><a href="#order-history">All Orders</a></li>
 					</ul>
 				</div>
-
 			</div>
 		</div>
 
@@ -128,8 +117,6 @@ if(isset($_POST['btn-send-mail']))
 						<h1>Welcome to <span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 						<h2>Order Commercial LPG Online</h2><h3>No Deposit | Lower Prices | Lower Gas Consumption | Hassle Free</h3>
 
-						<!-- <a class="btn btn-store smooth-scroll" href="#order-history">My Orders</a> -->
-						<a class="btn btn-store smooth-scroll" href="cart/index.php">Order Now</a>
 						<a class="btn btn-store smooth-scrool" href="logout.php">Logout</a>
 					</div>
 				</div>
@@ -151,7 +138,7 @@ if(isset($_POST['btn-send-mail']))
 	            <div class="headline-center margin-bottom-60" id="order-history">
 	                <h2>Order History</h2>
 	            </div>
-				<form action="index.html" method="post" novalidate id="order-form">
+				<form method="post" novalidate id="order-form">
 					<div class="row">
 						<div class="col-sm-12 col-md-12">
 						<table class="table">
@@ -189,404 +176,41 @@ if(isset($_POST['btn-send-mail']))
 					</div>	
 				</div>
 				</form>
-
 			</div>
-		</section>
+			</section>
+		</div>
 
-	        <!-- Flat Testimonials -->
-	        <div class="flat-testimonials bg-image-v1 parallaxBg1 margin-bottom-60" id="testimonial">
-	            <div class="container">
-	                <div class="headline-center headline-light margin-bottom-60">
-	                    <h2>What People Are Saying</h2>
-	                    <p>Integer odio ligula, tincidunt id volutpat et, imperdiet eget mi. Quisque laoreet porttitor turpis sed. Nullam sodales blandit nisi, tristique tempor nunc hendrerit at. Sed posuere mollis orci</p>
-	                </div><!--/end Headline Center-->
-
-	                <div class="row">
-	                    <div class="col-sm-4">
-	                        <div class="flat-testimonials-in md-margin-bottom-50">
-	                            <img class="rounded-x img-responsive" src="img/testimonial_user2.jpg" alt="">
-	                            <h3>Anthony Connor</h3>
-	                            <span class="color-green">Software Developer</span>
-	                            <p>Proin et augue vel nisi rhoncus tincidunt. Cras venenatis, magna id sem ipsum mi interduml</p>
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-4">
-	                        <div class="flat-testimonials-in md-margin-bottom-50">
-	                            <img class="rounded-x img-responsive" src="img/testimonial_user1.jpg" alt="">
-	                            <h3>Angela Danil</h3>
-	                            <span class="color-green">Web Designer</span>
-	                            <p>Proin et augue vel nisi rhoncus tincidunt. Cras venenatis, magna id sem ipsum mi interduml</p>
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-4">
-	                        <div class="flat-testimonials-in">
-	                            <img class="rounded-x img-responsive" src="img/testimonial_user3.jpg" alt="">
-	                            <h3>Anthony Connor</h3>
-	                            <span class="color-green">Software Developer</span>
-	                            <p>Proin et augue vel nisi rhoncus tincidunt. Cras venenatis, magna id sem ipsum mi interduml</p>
-	                        </div>
-	                    </div>
-	                </div><!--/end row-->
-	            </div><!--/end container-->
-	        </div>
-	        <!-- End Flat Testimonials -->
+		<div class="margin-bottom-30" id="order-history">
+	        <section id="orderform" class="gray-bg padding-top-bottom" ng-controller="orderController">
+			<div class="container">
+	            <div class="headline-center margin-bottom-60" id="order-history">
+	                <h2>Update Prices</h2>
+	            </div>
+				<form method="post">
+					<div class="row col-sm-12 col-md-6" style="margin-bottom: 50px;">
+						<div class="col-sm-9">
+							<input type="text" name="lpg-cylinder-price" placeholder="LPG Unit Cost" class="form-control" required>
+						</div>
+						<div class="col-sm-3">
+							<button type='submit' class='btn-u btn-block' name='btn-update-lpg-price' style='width:125px;'>Update LPG</button>
+						</div>
+					</div>
+				</form>
 
 
-	        <div class="container" id="about-us">
-	            <div class="headline-center margin-bottom-60">
-	                <h2>About Us</h2>
-	               </div>
-	                <div class="row">
-	                    <div class="banner-info green margin-bottom-10">
-	                        <i class="rounded-x fa fa-bookmark-o"></i>
-	                        <div class="overflow-h">
-	                            <p>GasMarket is a part of ‘Mktplace Ecom’, a Bangalore based B2B E-Commerce Company. GasMarket is India’s 1st commercial gas ordering portal focused on supplying commercial cooking gas (LPG) to Foods & Beverages (F&B) businesses in a cost effective, energy efficient & reliable way.</p>
-	                        </div>
-	                    </div>
-	                    <div class="banner-info green margin-bottom-10">
-	                        <i class="rounded-x fa fa-bookmark-o"></i>
-	                        <div class="overflow-h">
-	                            <p>GasMarket currently operates in Bangalore & plans to soon expand to other parts of India to take its value proposition to maximum F&B and other businesses nationwide.</p>
-	                        </div>
-	                    </div>
-	                    <div class="banner-info green margin-bottom-10">
-	                        <i class="rounded-x fa fa-bookmark-o"></i>
-	                        <div class="overflow-h">
-	                            <p>GasMarket is backed by a team of seasoned entrepreneurs & hospitality industry professionals who have deep understanding of the pain points of managing the gambit of cooking gas; one of the biggest costs for any F&B business.</p>
-	                        </div>
-	                    </div>
-	                    <div class="banner-info green margin-bottom-10">
-	                        <i class="rounded-x fa fa-bookmark-o"></i>
-	                        <div class="overflow-h">
-	                            <p>Although our main focus is on F&B businesses, we remain committed to supplying commercial cooking gas to other business establishments consuming commercial cooking gas offering them the same value proposition.</p>
-	                        </div>
-	                    </div>
-	                    <div class="margin-bottom-20"></div>
-            		</div>
-	            </div><!--/end Headline Center-->
-	        </div>
-
-
-	        <div class="flat-testimonials bg-image-v2 parallaxBg1 margin-bottom-60" id="how-it-works">
-	            <div class="container">
-	                <div class="headline-center headline-light margin-bottom-60">
-	                    <h2>How It Works</h2>
-	                    <p>GasMarket is a simple way for businesses to procure commercial LPG cooking gas online. Simple & painless:</p>
-	                </div><!--/end Headline Center-->
-
-			        <div class="container content-sm col-sm-offset-3 col-sm-6">
-				        <div class="row">
-				            <div class="col-sm-12 content-boxes-v3 sm-margin-bottom-30">
-				                <div class="margin-bottom-30">
-				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
-				                    <div class="content-boxes-in-v3">
-				                        <h2 class="heading-sm">Step 1: </h2>
-				                        <p id="hiw-alink"><a href="registration.php">Register online</a> or simply call us to register yourself.</p>
-				                    </div>
-				                </div>
-				            </div>
-				            <div class="col-sm-12 content-boxes-v3">
-				                <div class="clearfix margin-bottom-30">
-				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
-				                    <div class="content-boxes-in-v3">
-				                        <h2 class="heading-sm">Step 2: </h2>
-				                        <p>Our representatives will get in touch with-in 24 hours</p>
-				                    </div>
-				                </div>
-				            </div>
-
-				            <div class="col-sm-12 content-boxes-v3 sm-margin-bottom-30">
-				                <div class="margin-bottom-30">
-				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
-				                    <div class="content-boxes-in-v3">
-				                        <h2 class="heading-sm">Step 3: </h2>
-				                        <p>Our representatives would discuss & access your requirements & offer you a free-of-cost assessment on optimizing & reducing your cooking gas costs</p>
-				                    </div>
-				                </div>
-				            </div>
-				            <div class="col-sm-12 content-boxes-v3">
-				                <div class="clearfix margin-bottom-30">
-				                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
-				                    <div class="content-boxes-in-v3">
-				                        <h2 class="heading-sm">Step 4: </h2>
-				                        <p>That’s it, you can start placing your orders online & see order history through your own personalized dashboard!</p>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
-				 </div>
+				<form method="post">
+					<div class="row col-sm-12 col-md-6" style="margin-bottom: 50px;">
+						<div class="col-sm-9">
+							<input type="text" name="vat-percentage" placeholder="VAT Percentage" class="form-control" required>
+						</div>
+						<div class="col-sm-3">
+							<button type='submit' class='btn-u btn-block' name='btn-update-vat-percentage' style='width:150px;'>Update VAT</button>
+						</div>
+					</div>
+				</form>
 			</div>
-
-	        <div class="container" id="faq">
-	            <div class="headline-center margin-bottom-60">
-	                <h2>Frequently Asked Questions</h2>
-	            </div><!--/end Headline Center-->
-
-			    <!-- FAQ Content -->
-		        <div class="row">
-		            <!-- Begin Tab v1 -->
-		            <div class="col-md-8 col-md-offset-2">
-		                <section>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- Accordion -->
-                                <div class="accordion-v2 plus-toggle">
-                                    <div class="panel-group" id="accordion-v2">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseOne-v2">
-                                                        What is GasMarket?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseOne-v2" class="panel-collapse collapse in">
-                                                <div class="panel-body">
-                                                    GasMarket enables the supply of commercial cooking LPG to F&B and other business establishments from reputed suppliers
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseTwo-v2">
-                                                        Is GasMarket a ‘Gas Agency’?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseTwo-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    No, we are a B2B marketplace for procuring commercial LPG cooking gas    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseThree-v2">
-                                                        Does GasMarket supply to individuals buyers?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseThree-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    We supply only commercial cooking LPG to businesses establishments only.    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseFour-v2">
-                                                        Are these Gas cylinders subsidized?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseFour-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    GasMarket supplies only commercial non-subsidized LPG cooking gas.
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseFive-v2">
-                                                        Does the cylinders meet all statutory requirements?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseFive-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Yes all cylinders comply to all statutory & safety requirement laid down by the competent Govt. authorities.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseSix-v2">
-                                                        How do I register & place orders?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseSix-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Please visit our <a href="registration.php">register</a> to place orders
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseSeven-v2">
-                                                        Can I place orders on the phone?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseSeven-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    No problems with that. Please call us on +91 98452 85084 & we will let you know how.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseEight-v2">
-                                                        What are the prices, payment & other commercial terms?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseEight-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    Please <a href="registration.php">register</a> to know more on prices, payment options & other commercial terms and benefits or call us on +91 98452 85084 to know more.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseNine-v2">
-                                                        When do I get my gas delivered?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseNine-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    If you place the order before 12:00 PM you may get the delivery on the same day. Orders placed after 12:00 PM may be delivered the next day.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseTen-v2">
-                                                        Which areas does GasMarket service?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseTen-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    We service most areas & pin codes of Bangalore. Please click here to know the pin codes serviced.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseEleven-v2">
-                                                        Can I pay by credit or debit cards?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseEleven-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    This facility will be made available soon.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion-v2" href="#collapseTwelve-v2">
-                                                        What if my order is delayed?
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseTwelve-v2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    We are usually on top of your orders & ensure follow-up is done for timely delivery. However in the event your order is delayed, you could always contact GasMarket customer care for updates.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Accordion -->    
-                            </div>
-                        </div>
-                    </section>
-		            </div><!--/col-md-8-->
-		            <!--End Tab v1-->
-		        </div>
-		        <!-- End FAQ Content -->
-	        </div><!--/end container-->
-
-
-	    </div>
-	    <!--=== End Content ===-->
-
-	    <!-- Contact Section -->
-	    <section id="contact" class="contacts-section">
-	        <div class="container content-lg">
-	            <div class="title-v1">
-	                <h2>Contact Us</h2>
-	                <p>Our support team is always by your side for any eventuality or support that you may require. </p>
-	            </div>
-
-	            <div class="row contacts-in">
-	                <div class="col-md-6 md-margin-bottom-40">
-	                    <ul class="list-unstyled">
-	                        <li><i class="fa fa-phone"></i> (+91) 98452 85084</li>
-	                        <li><i class="fa fa-envelope"></i> <a href="mailto:abhishek@mktplace.in">abhishek@mktplace.in</a></li>
-	                        <li><i class="fa fa-globe"></i> <a href="#">www.gasmarket.in</a></li>
-	                    </ul>
-	                </div>
-
-	                <div class="col-md-6">
-	                    <form method="post" id="sky-form3" class="sky-form contact-style">
-	                        <fieldset>
-	                            <label>Name <span class="color-red">*</span></label>
-	                            <div class="row">
-	                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
-	                                    <div>
-	                                        <input type="text" name="contact-us-name" id="name" class="form-control" required>
-	                                    </div>
-	                                </div>
-	                            </div>
-
-	                            <label>Email <span class="color-red">*</span></label>
-	                            <div class="row">
-	                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
-	                                    <div>
-	                                        <input type="text" name="contact-us-email" id="email" class="form-control" required>
-	                                    </div>
-	                                </div>
-	                            </div>
-
-	                            <label>Message <span class="color-red">*</span></label>
-	                            <div class="row">
-	                                <div class="col-md-11 margin-bottom-20 col-md-offset-0">
-	                                    <div>
-	                                        <textarea rows="8" name="contact-us-message" id="message" class="form-control" required></textarea>
-	                                    </div>
-	                                </div>
-	                            </div>
-
-	                            <p><button type="submit" class="btn-u btn-brd btn-brd-hover btn-u-dark" name="btn-send-mail">Send Message</button></p>
-	                        </fieldset>
-
-	                        <div class="message">
-	                            <i class="rounded-x fa fa-check"></i>
-	                            <p>Your message was successfully sent!</p>
-	                        </div>
-	                    </form>
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-    <!-- End Contact Section -->
-
+			</section>
+		</div>
 
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/angular.min.js"></script>

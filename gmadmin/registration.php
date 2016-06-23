@@ -107,7 +107,7 @@ if(isset($_POST['btn-signup']))
 
         <div class="reg-block-header">
             <h2>Sign Up</h2>
-            <p>Already Signed Up? Click <a class="color-green" href="login.php">Sign In</a> to login your account.</p>
+            <p>Already Signed Up? Click <a class="color-green" href="index.php">Sign In</a> to login your account.</p>
         </div>
 
 
