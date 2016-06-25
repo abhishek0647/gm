@@ -15,8 +15,11 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $filterCondition = $_SESSION['userSession'];
 $strFilter = strval($filterCondition);
 
-$sth = $user_home->runQuery("SELECT unitPrice, quantity, finalprice, tdate FROM tbl_orders where uid =$strFilter");
+$sth = $user_home->runQuery("SELECT tid, unitPrice, quantity, finalprice, tdate FROM tbl_orders where uid =$strFilter");
 $sth->execute();
+
+$sth1 = $user_home->runQuery("SELECT * FROM tbl_orders where uid =$strFilter");
+$sth1->execute();
 
 // if(isset($_POST['btn-send-mail']))
 // {
@@ -157,7 +160,10 @@ $sth->execute();
 						<table class="table">
 						  <thead>
 							<tr>
-							  <th class="text-left">Product</th>
+							  <th class="text-left">
+							  	<span class="text-left hidden-xs">Order Number</span>
+							  	<span class="text-left visible-xs">Order Num</span>
+							  </th>
 							  <th>
 							  	<span class="text-left hidden-xs">Unit Cost (Rs)</span>
 							  	<span class="text-left visible-xs">Cost(Rs)</span>
@@ -173,11 +179,12 @@ $sth->execute();
 						  <tbody>
 						  	<?php
 								while ($rows = $sth->fetch(PDO::FETCH_ASSOC)) {
-									printf("<tr><td class='text-left vert-align'>17 Kg Cylinder</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td></tr>", $rows["unitPrice"], $rows["quantity"], $rows["finalprice"], substr($rows["tdate"],0, 10));
+									printf("<tr><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td><button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='%s'>View Details</button></td></tr>", $rows["tid"], $rows["unitPrice"], $rows["quantity"], $rows["finalprice"], substr($rows["tdate"],0, 10), '#'.$rows['tid']);
 								}
 							?>
 
 							<tr>
+								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -192,6 +199,44 @@ $sth->execute();
 
 			</div>
 		</section>
+
+		<?php
+			while ($rowss = $sth1->fetch(PDO::FETCH_ASSOC)) {
+				printf('<div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-body">
+						      	<table class="table">
+								  <thead>
+									<tr>
+									  <th class="text-left">Order Id</th>
+									  <th class="text-left">
+									  	<span class="text-left hidden-xs">Contact Person</span>
+									  	<span class="text-left visible-xs">Contact</span>
+									  </th>
+									  <th class="text-left">Number</th>
+									  <th class="text-left">
+									  	<span class="hidden-xs">Address</span>
+									  	<span class="visible-xs">Address</span>
+									  </th>
+									  <th class="text-left">City</th>
+									  <th class="text-left">Pincode</th>
+									</tr>
+								  </thead>
+								  <tbody>
+							        <tr><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td></tr>
+							        </tbody>
+						        </table>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>', $rowss["tid"], $rowss["tid"], $rowss["tperson"], $rowss["contactNum"], $rowss["addr1"]." ".$rowss["addr2"], $rowss["city"], $rowss["pincode"]
+				);
+			}
+		?>
 
 		<hr>
 	        <!-- Flat Testimonials -->
