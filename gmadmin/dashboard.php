@@ -8,27 +8,27 @@ if(!$user_home->is_logged_in())
 	$user_home->redirect('index.php');
 }
 
-$sth = $user_home->runQuery("SELECT unitPrice, quantity, finalprice, tdate FROM tbl_orders");
+if($_GET['status'] == 'success') {
+	$msg = "<div class='alert alert-success' align='text-center'>
+                        <button class='close' data-dismiss='alert'>&times;</button>
+                        <strong>Congrats!!</strong> The product prices has been updated. 
+                    </div>";
+}
+
+$sth = $user_home->runQuery("SELECT * FROM tbl_orders ORDER BY tdate DESC");
 $sth->execute();
 
-// if(isset($_POST['btn-update-lpg-price']))
-// {
-// 	$lpgCylinderPrice = trim($_POST['lpg-cylinder-price']);
+$sth1 = $user_home->runQuery("SELECT * FROM tbl_product_prices");
+$sth1->execute();
 
-// 	$lpgUpdate = $user_home->runQuery("UPDATE `tbl_product_prices` SET `gas_unit_price`=$lpgCylinderPrice WHERE 1");
-// 	$lpgUpdate->execute();
+$sth2 = $user_home->runQuery("SELECT * FROM tbl_orders ORDER BY tdate DESC");
+$sth2->execute();
 
-// 	$user_home->redirect('dashboard.php');
-// }
-
-// if(isset($_POST('btn-update-vat-percentage'))) {
-// 	$vatPercentage = trim($_POST['vat-percentage']);
-
-// 	$vatPercentageUpdate = $user_home->runQuery("UPDATE `tbl_product_prices` SET `vat_percent`=$vatPercentage WHERE 1");
-// 	$vatPercentageUpdate->execute();
-
-// 	$user_home->redirect('dashboard.php');
-// }
+while ($rows = $sth1->fetch(PDO::FETCH_ASSOC)) {
+    $gas_unit_price = $rows['gas_unit_price'];
+    $vat_percent = $rows['vat_percent'];
+    $shipping_cost = $rows['shipping_cost'];
+}
 
 ?>
 
@@ -37,8 +37,8 @@ $sth->execute();
 	<head>
 		<title>GasMarket.In</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Gas market online gas delivery portal">
-		<meta name="author" content="GasMarket Team">
+		<meta name="description" content="Order Commercial Gas Online">
+		<meta name="author" content="Abhishek Kumar">
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	    <!-- Web Fonts -->
@@ -96,8 +96,9 @@ $sth->execute();
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#home">
-						<img id="navlogo" src="../img/navlogo-green.png" alt="microstore" width="122" height="45">
+					<a href="#home">
+						<!-- <img id="navlogo" src="../img/navlogo-green.png" alt="microstore" width="122" height="45"> -->
+						<h1><span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 					</a>
 
 				</div>
@@ -113,7 +114,7 @@ $sth->execute();
 			<div class="container welcome-content">
 				<div class="row">
 					<div class="col-lg-5 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center wow fadeInUp">
-						<img id="logo" src="../img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300">
+						<!-- <img id="logo" src="../img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300"> -->
 						<h1>Welcome to <span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 						<h2>Order Commercial LPG Online</h2><h3>No Deposit | Lower Prices | Lower Gas Consumption | Hassle Free</h3>
 
@@ -135,7 +136,7 @@ $sth->execute();
 	    <div class="margin-bottom-30" id="order-history">
 	        <section id="orderform" class="gray-bg padding-top-bottom" ng-controller="orderController">
 			<div class="container">
-	            <div class="headline-center margin-bottom-60" id="order-history">
+	            <div class="headline-center margin-bottom-60">
 	                <h2>Order History</h2>
 	            </div>
 				<form method="post" novalidate id="order-form">
@@ -144,28 +145,24 @@ $sth->execute();
 						<table class="table">
 						  <thead>
 							<tr>
-							  <th class="text-left">Product</th>
-							  <th>
-							  	<span class="text-left hidden-xs">Unit Cost (Rs)</span>
-							  	<span class="text-left visible-xs">Cost(Rs)</span>
-							  </th>
-							  <th class="text-left">
-							  <span class="hidden-xs">Quantity</span>
-							  <span class="visible-xs">QNT</span>
-							  </th>
-							  <th class="text-left">Total</th>
-							  <th class="text-left">Purchase Date</th>
+							  <th class="text-center col-sm-3">Order ID</th>
+							  <th class="text-center col-sm-3">Order Date</th>
+							  <th class="text-center col-sm-3">No. Of Cylinders</th>
+							  <th class="col-sm-3"><th>
 							</tr>
 						  </thead>
 						  <tbody>
 						  	<?php
 								while ($rows = $sth->fetch(PDO::FETCH_ASSOC)) {
-									printf("<tr><td class='text-left vert-align'>17 Kg Cylinder</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td></tr>", $rows["unitPrice"], $rows["quantity"], $rows["finalprice"], substr($rows["tdate"],0, 10));
+									$dateString = substr($rows["tdate"],0, 10);
+									$myDateTime = DateTime::createFromFormat('Y-m-d', $dateString);
+									$newDateString = $myDateTime->format('d/m/Y');
+
+									printf("<tr><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'><button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='%s'>View Details</button></td></tr>", $rows["tid"], $newDateString, $rows["quantity"], '#'.$rows['tid']);
 								}
 							?>
 
 							<tr>
-								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -180,34 +177,67 @@ $sth->execute();
 			</section>
 		</div>
 
-		<div class="margin-bottom-30" id="order-history">
-	        <section id="orderform" class="gray-bg padding-top-bottom" ng-controller="orderController">
+		<?php
+			while ($rowss = $sth2->fetch(PDO::FETCH_ASSOC)) {
+				$dateString = substr($rowss["tdate"],0, 10);
+				$myDateTime = DateTime::createFromFormat('Y-m-d', $dateString);
+				$newDateString = $myDateTime->format('d/m/Y');
+
+				$contactPerson = $rowss["tperson"];
+				$addr1 = $rowss["addr1"];
+				$addr2 = $rowss["addr2"];
+				$city = $rowss["city"];
+				$pincode = $rowss["pincode"];
+				$contactNum = $rowss["contactNum"];
+				$deliveryAddress = $contactPerson."<br>".$addr1."<br>".$addr2."<br>".$city."<br>".$pincode."<br>Phone: ".$contactNum;
+
+				printf('<div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog modal-lg" role="document">
+						    <div class="modal-content">
+						      <div class="modal-body">
+						      	<table class="table table-bordered">
+								  <thead>
+									<tr>
+									  <th class="text-center">Order Id</th>
+									  <th class="text-center">Order Date</th>
+									  <th class="text-center">Delivery Location</th>
+									  <th class="text-center">No. Of Cylinders</th>
+									  <th class="text-center">Cost/Unit</th>
+									  <th class="text-center">VAT</th>
+									  <th class="text-center">Shipping</th>
+									  <th class="text-center">Total Amount</th>
+									</tr>
+								  </thead>
+								  <tbody>
+							        <tr><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td></tr>
+							        </tbody>
+						        </table>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>', $rowss["tid"], $rowss["tid"], $newDateString, $deliveryAddress, $rowss["quantity"],  $rowss["unitPrice"], $rowss["vatAmount"], $rowss["shippingAmount"], $rowss["finalprice"]
+				);
+			}
+		?>
+
+		<div class="margin-bottom-30" id="update-prices">
 			<div class="container">
-	            <div class="headline-center margin-bottom-60" id="order-history">
+	            <div class="headline-center margin-bottom-60">
 	                <h2>Update Prices</h2>
 	            </div>
-				<form method="post">
-					<div class="row col-sm-12 col-md-6" style="margin-bottom: 50px;">
-						<div class="col-sm-9">
-							<input type="text" name="lpg-cylinder-price" placeholder="LPG Unit Cost" class="form-control" required>
-						</div>
-						<div class="col-sm-3">
-							<button type='submit' class='btn-u btn-block' name='btn-update-lpg-price' style='width:125px;'>Update LPG</button>
-						</div>
-					</div>
-				</form>
-
-
-				<form method="post">
-					<div class="row col-sm-12 col-md-6" style="margin-bottom: 50px;">
-						<div class="col-sm-9">
-							<input type="text" name="vat-percentage" placeholder="VAT Percentage" class="form-control" required>
-						</div>
-						<div class="col-sm-3">
-							<button type='submit' class='btn-u btn-block' name='btn-update-vat-percentage' style='width:150px;'>Update VAT</button>
-						</div>
-					</div>
-				</form>
+	            <?php if(isset($msg)) echo $msg;  ?>
+	            <form method="POST" action="update-price.php">
+	            	<p>LPG Unit Price :</p>
+	            	<input type="text" class="form-control margin-bottom-30" placeholder="LPG Unit Price" value="<?php echo $gas_unit_price ?>" name="txtlpgprice" required>
+	            	<p>Vat Percentage :</p>
+	            	<input type="text" class="form-control margin-bottom-30" placeholder="VAT Percentage" value="<?php echo $vat_percent ?>" name="txtVatPercentage" class="form-control" required>
+	            	<p> Shipping Cost :</p>
+	            	<input type="text" class="form-control margin-bottom-30" placeholder="Shipping Charge" value="<?php echo $shipping_cost ?>" name="txtShippingCost" class="form-control" required>
+	            	<button type="submit" class="btn-u btn-block" name="btn-update-lpg">Update Price</button>
+	            </form>
 			</div>
 			</section>
 		</div>
