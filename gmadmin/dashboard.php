@@ -105,6 +105,7 @@ while ($rows = $sth1->fetch(PDO::FETCH_ASSOC)) {
 				<div class="collapse navbar-collapse">
 					<ul id="navigation" class="nav navbar-nav navbar-right text-center">
 						<li><a href="#order-history">All Orders</a></li>
+						<li><a href="#update-prices">Update Prices</a></li>
 					</ul>
 				</div>
 			</div>

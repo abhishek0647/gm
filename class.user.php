@@ -158,19 +158,19 @@ class USER
 					}
 					else
 					{
-						header("Location: login.php?error");
+						header("Location: index.php?error");
 						exit;
 					}
 				}
 				else
 				{
-					header("Location: login.php?inactive");
+					header("Location: index.php?inactive");
 					exit;
 				}	
 			}
 			else
 			{
-				header("Location: login.php?error");
+				header("Location: index.php?error");
 				exit;
 			}		
 		}

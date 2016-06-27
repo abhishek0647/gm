@@ -76,8 +76,8 @@ if(isset($_POST['btn-signup']))
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Order Commercial Gas Online">
+    <meta name="author" content="Abhishek Kumar">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">

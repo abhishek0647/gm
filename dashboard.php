@@ -15,28 +15,11 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $filterCondition = $_SESSION['userSession'];
 $strFilter = strval($filterCondition);
 
-$sth = $user_home->runQuery("SELECT tid, unitPrice, quantity, finalprice, tdate FROM tbl_orders where uid =$strFilter");
+$sth = $user_home->runQuery("SELECT tid, unitPrice, quantity, finalprice, tdate FROM tbl_orders where uid =$strFilter ORDER BY tdate DESC");
 $sth->execute();
 
-$sth1 = $user_home->runQuery("SELECT * FROM tbl_orders where uid =$strFilter");
+$sth1 = $user_home->runQuery("SELECT * FROM tbl_orders where uid =$strFilter ORDER BY tdate DESC");
 $sth1->execute();
-
-// if(isset($_POST['btn-send-mail']))
-// {
-// 	$contactUsName  = trim($_POST['contact-us-name']);
-// 	$contactUsEmail = trim($_POST['contact-us-email']);
-// 	$contactUsText  = trim($_POST['contact-us-message']);
-
-// 	$to = "abhishek0647@gmail.com";
-// 	$subject = "GasMarket Contact Us";
-// 	// $txt = "Name : " + $contactUsName + " Email : " + $contactUsEmail + " Content : " + $contactUsText;
-// 	$txt = "Testing Email Feature";
-// 	$headers = "From: abhishek0647@gmail.com";
-
-// 	mail($to,$subject,$txt,$headers);
-
-// 	$user_home->redirect('dashboard.php');
-// }
 
 ?>
 
@@ -45,8 +28,8 @@ $sth1->execute();
 	<head>
 		<title>GasMarket.In</title>
 		<meta charset="utf-8">
-		<meta name="description" content="MicroStore Responsive HTML5/CSS3 Template from angelostudio.net">
-		<meta name="author" content="ANGELOSTUDIO.NET">
+		<meta name="description" content="Order Commercial Gas Online">
+		<meta name="author" content="Abhishek Kumar">
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	    <!-- Web Fonts -->
@@ -179,7 +162,7 @@ $sth1->execute();
 						  <tbody>
 						  	<?php
 								while ($rows = $sth->fetch(PDO::FETCH_ASSOC)) {
-									printf("<tr><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td class='text-left vert-align'>%s</td><td><button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='%s'>View Details</button></td></tr>", $rows["tid"], $rows["unitPrice"], $rows["quantity"], $rows["finalprice"], substr($rows["tdate"],0, 10), '#'.$rows['tid']);
+									printf("<tr><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'><button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='%s'>View Details</button></td></tr>", $rows["tid"], substr($rows["tdate"],0, 10), $rows["quantity"], '#'.$rows['tid']);
 								}
 							?>
 
