@@ -57,7 +57,7 @@ if(isset($_POST['btn-login']))
     <!--Reg Block-->
     <div class="reg-block-signin">
         <div class="reg-block-header">
-            <h2>Sign In</h2>
+            <h2>Admin Sign In</h2>
             <p>Don't Have Account? Click <a class="color-green" href="registration.php">Sign Up</a> to register.</p>
         </div>
 
