@@ -528,7 +528,7 @@ if($_GET['status'] == 'success') {
 	                </div>
 
 	                <div class="col-md-6">
-	                    <form action="send-mail.php" method="post" id="sky-form3" class="sky-form contact-style">
+	                    <form action="send-mail-index.php" method="post" id="sky-form3" class="sky-form contact-style">
 	                        <fieldset>
 	                            <label>Name <span class="color-red">*</span></label>
 	                            <div class="row">
