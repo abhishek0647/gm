@@ -1,5 +1,5 @@
 function submitButtonActivator() {
-	var emailPattern = /^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i;
+	var emailPattern = /^([\w-\.]+)@((?:[\w-\.]+\.)+)([a-zA-Z]{2,4})/i;
 	var phoneNumberPattern = /^[0-9]{10}$/;
 
 	if(emailPattern.test($('input[name="txtemail"]').val()) && $('input[name="txtpass"]').val() == $('input[name="txtconfirmpass"]').val() && phoneNumberPattern.test($('input[name="txtmobnum"]').val())) {
@@ -12,7 +12,7 @@ function submitButtonActivator() {
 
 function validateEmail() {
 	if($('input[name="txtemail"]').val().length > 0) {
-		var pattern = /^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i;
+		var pattern = /^([\w-\.]+)@((?:[\w-\.]+\.)+)([a-zA-Z]{2,4})/i;
     	if(! pattern.test($('input[name="txtemail"]').val())) {
     		$('#email-correct').hide();
     		$("#email-wrong").show();
