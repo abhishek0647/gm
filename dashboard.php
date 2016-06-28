@@ -8,6 +8,13 @@ if(!$user_home->is_logged_in())
 	$user_home->redirect('index.php');
 }
 
+if($_GET['status'] == 'success') {
+	$msg = "<div class='alert alert-success' align='text-center'>
+                <button class='close' style='top: 0px; right: 0px;' data-dismiss='alert'>&times;</button>
+                <strong>Thank you for contacting us!!<br></strong> Our support team will get in touch with you at the earliest. 
+            </div>";
+}
+
 $stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
 $stmt->execute(array(":uid"=>$_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -87,10 +94,10 @@ $sth1->execute();
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#home">
-						<img id="navlogo" src="img/navlogo-green.png" alt="microstore" width="122" height="45">
+					<a href="#home">
+						<!-- <img id="navlogo" src="img/navlogo-green.png" alt="microstore" width="122" height="45"> -->
+						<h1><span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 					</a>
-
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul id="navigation" class="nav navbar-nav navbar-right text-center">
@@ -110,7 +117,8 @@ $sth1->execute();
 			<div class="container welcome-content">
 				<div class="row">
 					<div class="col-lg-5 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center wow fadeInUp">
-						<img id="logo" src="img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300">
+						<?php if(isset($msg)) echo $msg;  ?>
+						<!-- <img id="logo" src="img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300"> -->
 						<h1>Welcome to <span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 						<h2>Order Commercial LPG Online</h2><h3>No Deposit | Lower Prices | Lower Gas Consumption | Hassle Free</h3>
 
@@ -143,26 +151,20 @@ $sth1->execute();
 						<table class="table">
 						  <thead>
 							<tr>
-							  <th class="text-left">
-							  	<span class="text-left hidden-xs">Order Number</span>
-							  	<span class="text-left visible-xs">Order Num</span>
-							  </th>
-							  <th>
-							  	<span class="text-left hidden-xs">Unit Cost (Rs)</span>
-							  	<span class="text-left visible-xs">Cost(Rs)</span>
-							  </th>
-							  <th class="text-left">
-							  <span class="hidden-xs">Quantity</span>
-							  <span class="visible-xs">QNT</span>
-							  </th>
-							  <th class="text-left">Total</th>
-							  <th class="text-left">Purchase Date</th>
+							  <th class="text-center col-sm-3">Order ID</th>
+							  <th class="text-center col-sm-3">Order Date</th>
+							  <th class="text-center col-sm-3">No. Of Cylinders</th>
+							  <th class="col-sm-3"><th>
 							</tr>
 						  </thead>
 						  <tbody>
 						  	<?php
 								while ($rows = $sth->fetch(PDO::FETCH_ASSOC)) {
-									printf("<tr><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'><button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='%s'>View Details</button></td></tr>", $rows["tid"], substr($rows["tdate"],0, 10), $rows["quantity"], '#'.$rows['tid']);
+									$dateString = substr($rows["tdate"],0, 10);
+									$myDateTime = DateTime::createFromFormat('Y-m-d', $dateString);
+									$newDateString = $myDateTime->format('d/m/Y');
+
+									printf("<tr><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'>%s</td><td class='text-center vert-align col-sm-3'><button type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='%s'>View Details</button></td></tr>", $rows["tid"], $newDateString, $rows["quantity"], '#'.$rows['tid']);
 								}
 							?>
 
@@ -185,29 +187,37 @@ $sth1->execute();
 
 		<?php
 			while ($rowss = $sth1->fetch(PDO::FETCH_ASSOC)) {
+				$dateString = substr($rowss["tdate"],0, 10);
+				$myDateTime = DateTime::createFromFormat('Y-m-d', $dateString);
+				$newDateString = $myDateTime->format('d/m/Y');
+
+				$contactPerson = $rowss["tperson"];
+				$addr1 = $rowss["addr1"];
+				$addr2 = $rowss["addr2"];
+				$city = $rowss["city"];
+				$pincode = $rowss["pincode"];
+				$contactNum = $rowss["contactNum"];
+				$deliveryAddress = $contactPerson."<br>".$addr1."<br>".$addr2."<br>".$city."<br>".$pincode."<br>Phone: ".$contactNum;
+
 				printf('<div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  <div class="modal-dialog" role="document">
+						  <div class="modal-dialog modal-lg" role="document">
 						    <div class="modal-content">
 						      <div class="modal-body">
-						      	<table class="table">
+						      	<table class="table table-bordered">
 								  <thead>
 									<tr>
-									  <th class="text-left">Order Id</th>
-									  <th class="text-left">
-									  	<span class="text-left hidden-xs">Contact Person</span>
-									  	<span class="text-left visible-xs">Contact</span>
-									  </th>
-									  <th class="text-left">Number</th>
-									  <th class="text-left">
-									  	<span class="hidden-xs">Address</span>
-									  	<span class="visible-xs">Address</span>
-									  </th>
-									  <th class="text-left">City</th>
-									  <th class="text-left">Pincode</th>
+									  <th class="text-center">Order Id</th>
+									  <th class="text-center">Order Date</th>
+									  <th class="text-center">Delivery Location</th>
+									  <th class="text-center">No. Of Cylinders</th>
+									  <th class="text-center">Cost/Unit</th>
+									  <th class="text-center">VAT</th>
+									  <th class="text-center">Shipping</th>
+									  <th class="text-center">Total Amount</th>
 									</tr>
 								  </thead>
 								  <tbody>
-							        <tr><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td><td class="text-left vert-align">%s</td></tr>
+							        <tr><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td><td class="text-center vert-align">%s</td></tr>
 							        </tbody>
 						        </table>
 						      </div>
@@ -216,7 +226,7 @@ $sth1->execute();
 						      </div>
 						    </div>
 						  </div>
-						</div>', $rowss["tid"], $rowss["tid"], $rowss["tperson"], $rowss["contactNum"], $rowss["addr1"]." ".$rowss["addr2"], $rowss["city"], $rowss["pincode"]
+						</div>', $rowss["tid"], $rowss["tid"], $newDateString, $deliveryAddress, $rowss["quantity"],  $rowss["unitPrice"], $rowss["vatAmount"], $rowss["shippingAmount"], $rowss["finalprice"]
 				);
 			}
 		?>
