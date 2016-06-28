@@ -15,5 +15,5 @@ $headers = "From: ".$contactUsEmail;
 
 mail($to,$subject,$txt,$headers);
 
-$user_home->redirect('dashboard.php?status=success');
+$user_home->redirect('index.php?status=success');
 ?>
