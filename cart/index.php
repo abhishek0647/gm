@@ -63,8 +63,8 @@ if(isset($_POST['btn-place-order']))
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Order Commercial Gas Online">
+    <meta name="author" content="Abhishek Kumar">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -103,7 +103,7 @@ if(isset($_POST['btn-place-order']))
     <!-- CSS Customization -->
     <link rel="stylesheet" href="assets/css/custom.css">
 
-</head>	
+</head> 
 
 <body id="home" onload="javascript:updateReviewOrder();">
     <div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -112,10 +112,10 @@ if(isset($_POST['btn-place-order']))
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    <img id="navlogo" src="img/navlogo-green.png" alt="microstore" width="122" height="45">
-                </a>
-
+        <a href="#home">
+            <!-- <img id="navlogo" src="img/navlogo-green.png" alt="microstore" width="122" height="45"> -->
+            <h1><span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
+        </a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul id="navigation" class="nav navbar-nav navbar-right text-center">
@@ -127,7 +127,7 @@ if(isset($_POST['btn-place-order']))
     </div>
 <div class="wrapper">
     <!--=== Content Medium Part ===-->
-    <div class="content-md margin-bottom-30">
+    <div class="content-md style="padding-bottom:15px;">
         <div class="container">
             <form method="POST" class="shopping-cart" action="#">
                 <div>
@@ -276,67 +276,6 @@ if(isset($_POST['btn-place-order']))
         </div><!--/end container-->
     </div>
     <!--=== End Content Medium Part ===-->     
-
-    <!-- Contact Section -->
-    <section id="contact" class="contacts-section">
-        <div class="container content-lg">
-            <div class="title-v1">
-                <h2>Contact Us</h2>
-                <p>Our support team is always by your side for any eventuality or support that you may require.</p>
-            </div>
-
-            <div class="row contacts-in">
-                <div class="col-md-6 md-margin-bottom-40">
-                    <ul class="list-unstyled">
-                        <li><i class="fa fa-phone"></i> (+91) 98452 85084</li>
-                        <li><i class="fa fa-envelope"></i> <a href="abhishek@mktplace.in">abhishek@mktplace.in</a></li>
-                        <li><i class="fa fa-globe"></i> <a href="#">www.gasmarket.in</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-6">
-                    <form action="#" method="post" id="sky-form3" class="sky-form contact-style">
-                        <fieldset>
-                            <label>Name <span class="color-red">*</span></label>
-                            <div class="row">
-                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
-                                    <div>
-                                        <input type="text" name="name" id="name" class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <label>Email <span class="color-red">*</span></label>
-                            <div class="row">
-                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
-                                    <div>
-                                        <input type="text" name="email" id="email" class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <label>Message <span class="color-red">*</span></label>
-                            <div class="row">
-                                <div class="col-md-11 margin-bottom-20 col-md-offset-0">
-                                    <div>
-                                        <textarea rows="8" name="message" id="message" class="form-control" required></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <p><button type="submit" class="btn-u btn-brd btn-brd-hover btn-u-dark">Send Message</button></p>
-                        </fieldset>
-
-                        <div class="message">
-                            <i class="rounded-x fa fa-check"></i>
-                            <p>Your message was successfully sent!</p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Contact Section -->
 
 </div><!--/wrapper-->
 
