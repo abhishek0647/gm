@@ -70,7 +70,6 @@ if($_GET['status'] == 'success') {
 						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button>
 					<a href="#home">
-						<?php if(isset($msg)) echo $msg;  ?>
 						<!-- <img id="navlogo" src="img/navlogo-green.png" alt="microstore" width="122" height="45"> -->
 						<h1><span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 					</a>
@@ -92,6 +91,7 @@ if($_GET['status'] == 'success') {
 			<div class="container welcome-content">
 				<div class="row">
 					<div class="col-lg-5 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center wow fadeInUp">
+						<?php if(isset($msg)) echo $msg;  ?>
 						<!-- <img id="logo" src="img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300"> -->
 						<h1>Welcome to <span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 						<h2>Order Commercial LPG Online</h2><h3>No Deposit | Lower Prices | Lower Gas Consumption | Hassle Free</h3>
