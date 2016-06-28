@@ -191,8 +191,9 @@ if(isset($_POST['btn-signup']))
 </script>
 <script type="text/javascript">
     $.backstretch([
-      "img/login_1.jpg",
-      "img/login_2.jpg",
+      "img/home_carousel_bg1.jpg",
+      "img/home_carousel_bg3.jpg",
+      "img/home_carousel_bg2.jpg",
       ], {
         fade: 1000,
         duration: 7000
