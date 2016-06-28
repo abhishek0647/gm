@@ -5,7 +5,7 @@ $user_home = new USER();
 
 if(!$user_home->is_logged_in())
 {
-	$user_home->redirect('index.html');
+	$user_home->redirect('index.php');
 }
 
 $stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
@@ -137,7 +137,7 @@ $sth1->execute();
 	            <div class="headline-center margin-bottom-60" id="order-history">
 	                <h2>Order History</h2>
 	            </div>
-				<form action="index.html" method="post" novalidate id="order-form">
+				<form method="post" novalidate id="order-form">
 					<div class="row">
 						<div class="col-sm-12 col-md-12">
 						<table class="table">

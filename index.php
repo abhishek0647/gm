@@ -1,3 +1,12 @@
+<?php 
+if($_GET['status'] == 'success') {
+	$msg = "<div class='alert alert-success' align='text-center'>
+                <button class='close' style='top: 0px; right: 0px;' data-dismiss='alert'>&times;</button>
+                <strong>Thank you for contacting us!!<br></strong> Our support team will get in touch with you at the earliest. 
+            </div>";
+}
+?>
+
 <!doctype html>
 <html ng-app="storeApp">
 	<head>
@@ -60,10 +69,11 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#home">
-						<img id="navlogo" src="img/navlogo-green.png" alt="microstore" width="122" height="45">
+					<a href="#home">
+						<?php if(isset($msg)) echo $msg;  ?>
+						<!-- <img id="navlogo" src="img/navlogo-green.png" alt="microstore" width="122" height="45"> -->
+						<h1><span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 					</a>
-
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul id="navigation" class="nav navbar-nav navbar-right text-center">
@@ -75,7 +85,6 @@
 						<li><a href="#contact">Contact Us</a></li>
 					</ul>
 				</div>
-
 			</div>
 		</div>
 
@@ -83,7 +92,7 @@
 			<div class="container welcome-content">
 				<div class="row">
 					<div class="col-lg-5 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center wow fadeInUp">
-						<img id="logo" src="img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300">
+						<!-- <img id="logo" src="img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300"> -->
 						<h1>Welcome to <span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 						<h2>Order Commercial LPG Online</h2><h3>No Deposit | Lower Prices | Lower Gas Consumption | Hassle Free</h3>
 
@@ -498,8 +507,6 @@
 		        </div>
 		        <!-- End FAQ Content -->
 	        </div><!--/end container-->
-
-
 	    </div>
 	    <!--=== End Content ===-->
 

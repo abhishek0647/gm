@@ -10,8 +10,8 @@ if(!$user_home->is_logged_in())
 
 if($_GET['status'] == 'success') {
 	$msg = "<div class='alert alert-success' align='text-center'>
-                        <button class='close' data-dismiss='alert'>&times;</button>
                         <strong>Congrats!!</strong> The product prices has been updated. 
+                        <button class='close' style='top: 0px; right: 0px;' data-dismiss='alert'>&times;</button>
                     </div>";
 }
 
@@ -115,6 +115,7 @@ while ($rows = $sth1->fetch(PDO::FETCH_ASSOC)) {
 			<div class="container welcome-content">
 				<div class="row">
 					<div class="col-lg-5 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center wow fadeInUp">
+						<?php if(isset($msg)) echo $msg;  ?>
 						<!-- <img id="logo" src="../img/logo-green.png" class="img-responsive text-center" alt="shop logo" width="300"> -->
 						<h1>Welcome to <span style="color: #FF1744;">Gas</span><span style="color: #18ba9b;">Market</span></h1>
 						<h2>Order Commercial LPG Online</h2><h3>No Deposit | Lower Prices | Lower Gas Consumption | Hassle Free</h3>
@@ -229,7 +230,6 @@ while ($rows = $sth1->fetch(PDO::FETCH_ASSOC)) {
 	            <div class="headline-center margin-bottom-60">
 	                <h2>Update Prices</h2>
 	            </div>
-	            <?php if(isset($msg)) echo $msg;  ?>
 	            <form method="POST" action="update-price.php">
 	            	<p>LPG Unit Price :</p>
 	            	<input type="text" class="form-control margin-bottom-30" placeholder="LPG Unit Price" value="<?php echo $gas_unit_price ?>" name="txtlpgprice" required>

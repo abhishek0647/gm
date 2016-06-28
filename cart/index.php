@@ -7,7 +7,7 @@ $user_home = new USER();
 
 if(!$user_home->is_logged_in())
 {
-    $user_home->redirect('../index.html');
+    $user_home->redirect('../index.php');
 }
 
 $filterCondition = $_SESSION['userSession'];
