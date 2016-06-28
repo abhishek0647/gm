@@ -48,7 +48,7 @@ if(isset($_POST['btn-place-order']))
 
     $user_home->placeOrder($uid, $unitPrice, $quantity, $vatAmount, $finalprice, $firstname, $lastname, $tperson, $contactNum, $addr1, $addr2, $city, $pincode);
     
-    $user_home->redirect('../dashboard.php#orderform');
+    $user_home->redirect('../dashboard.php?status=order-placed');
            
 }
 ?>

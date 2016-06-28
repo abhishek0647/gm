@@ -15,6 +15,13 @@ if($_GET['status'] == 'success') {
             </div>";
 }
 
+if($_GET['status'] == 'order-placed') {
+	$msg = "<div class='alert alert-success' align='text-center'>
+                <button class='close' style='top: 0px; right: 0px;' data-dismiss='alert'>&times;</button>
+                <strong>Your Order has been placed successfully!!<br></strong><a href='#orderform'>Click here</a> to view your order history.
+            </div>";
+}
+
 $stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
 $stmt->execute(array(":uid"=>$_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
