@@ -1,31 +1,33 @@
 <?php
+error_reporting(0);
+
 session_start();
 require_once 'class.user.php';
-$user_login = new USER();
 
-if($user_login->is_logged_in()!="")
-{
-    $user_login->redirect('dashboard.php');
+$reg_user = new USER();
+
+if($_GET['status'] == 'noUserFound') {
+	$msg = "<div class='alert alert-error' align='text-center'>
+            <strong>Oops!!</strong> This email Id does not exist in our database. <a href='registration.php'>Click here</a> to register.
+            <button class='close' style='top: 0px; right: 0px;' data-dismiss='alert'>&times;</button>
+          </div>";
 }
 
-if(isset($_POST['btn-login']))
-{
-    $email = trim($_POST['txtemail']);
-    $upass = trim($_POST['txtupass']);
-    
-    if($user_login->login($email,$upass))
-    {
-        $user_login->redirect('dashboard.php');
-    }
+if($_GET['status'] == 'success') {
+	$msg = "<div class='alert alert-success' align='text-center'>
+            <strong>Email Sent!!</strong> Please check your inbox. <a href='login.php'>Click here</a> to login.
+            <button class='close' style='top: 0px; right: 0px;' data-dismiss='alert'>&times;</button>
+          </div>";
 }
 ?>
+
 
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>Login - GasMarket.In</title>
+    <title>Forgot Password - GasMarket.In</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -44,7 +46,7 @@ if(isset($_POST['btn-login']))
     <link rel="stylesheet" href="css/style-unify.css">
 
     <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="css/animate-unify.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/line-icons.css">
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
 
@@ -53,73 +55,30 @@ if(isset($_POST['btn-login']))
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/app-unify.css">
 </head>
 
 <body>
 <!--=== Content Part ===-->
 <div class="container">
     <!--Reg Block-->
-    <div class="reg-block-signin">
+    <div class="col-md-6 col-md-offset-3" style="background: #fff; padding: 20px; margin-top: 15%; position: absolute; left:0; right:0;">
         <div class="reg-block-header">
-            <h2>Sign In</h2>
-            <p>Don't Have Account? Click <a class="color-green" href="registration.php">Sign Up</a> to register.</p>
+            <h2>Forgot Password</h2>
         </div>
 
-        <?php 
-        if(isset($_GET['inactive']))
-        {
-            ?>
-            <div class='alert alert-error'>
-                <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Sorry!</strong> This Account is not Activated Go to your Inbox and Activate it. 
-            </div>
-            <?php
-        }
-        ?>
-        
-        <?php
-        if(isset($_GET['error']))
-        {
-            ?>
-            <div class='alert alert-success'>
-                <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Wrong Details!</strong> 
-            </div>
-            <?php
-        }
-        ?>
 
-        <form method="POST">
+        <?php if(isset($msg)) echo $msg;  ?>
+        <form method="POST" action="send-mail-fp.php">
             <div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                 <input type="email" class="form-control" placeholder="Email" name="txtemail" required>
-                <h2 id="resultEmail"></h2>
             </div>
-            <div class="input-group margin-bottom-20">
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" placeholder="Password" name="txtupass" required>
-            </div>
-            <!-- <hr> -->
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox">
-                    <p>Stay Signed In</p>
-                </label>
-            </div>
-
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <button type="submit" class="btn-u btn-block" name="btn-login">Log In</button>
+                    <button type="submit" class="btn-u btn-block" name="btn-signup" id="register-btn">Submit</button>
                 </div>
             </div>
         </form>
-
-        <hr>
-        <h4>Forgot your Password ?</h4>
-        <p>No worries! <a class="color-green" href="forgot-password.php">Click here</a> to reset your password.</p>
-        
     </div>
     <!--End Reg Block-->
 </div><!--/container-->
@@ -128,9 +87,9 @@ if(isset($_POST['btn-login']))
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-migrate.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/myjs.js"></script>
 <!-- JS Implementing Plugins -->
-<script type="text/javascript" src="js/back-to-top.js"></script>
 <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
 <!-- JS Customization -->
 <script type="text/javascript" src="js/custom.js"></script>
@@ -138,7 +97,9 @@ if(isset($_POST['btn-login']))
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
+
         App.init();
+        $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
 <script type="text/javascript">
@@ -150,18 +111,6 @@ if(isset($_POST['btn-login']))
         fade: 1000,
         duration: 7000
     });
-</script>
-<script type="text/javascript">
-    function validateEmail(emailField){
-        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+(\.([A-Za-z]{2,4}))+$/;
-
-        if (reg.test(emailField.value) == false) {
-            alert('Invalid Email Address');
-            return false;
-        }
-
-        return true;
-    }
 </script>
 
 <!--[if lt IE 9]>
