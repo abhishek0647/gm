@@ -70,7 +70,7 @@ if(isset($_POST['btn-login']))
         if(isset($_GET['inactive']))
         {
             ?>
-            <div class='alert alert-error'>
+            <div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
                 <strong>Sorry!</strong> This Account is not Activated Go to your Inbox and Activate it. 
             </div>

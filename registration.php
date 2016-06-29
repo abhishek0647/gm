@@ -24,7 +24,7 @@ if(isset($_POST['btn-signup']))
     if($stmt->rowCount() > 0)
     {
         $msg = "
-              <div class='alert alert-error' align='text-center'>
+              <div class='alert alert-danger' align='text-center'>
                 <!-- <button class='close' data-dismiss='alert'>&times;</button> -->
                     <strong>Sorry !</strong> Username/Email already exists, please try another one
               </div>

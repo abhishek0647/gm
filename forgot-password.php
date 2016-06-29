@@ -7,7 +7,7 @@ require_once 'class.user.php';
 $reg_user = new USER();
 
 if($_GET['status'] == 'noUserFound') {
-	$msg = "<div class='alert alert-error' align='text-center'>
+	$msg = "<div class='alert alert-danger' align='text-center'>
             <strong>Oops!!</strong> This email Id does not exist in our database. <a href='registration.php'>Click here</a> to register.
             <button class='close' style='top: 0px; right: 0px;' data-dismiss='alert'>&times;</button>
           </div>";
