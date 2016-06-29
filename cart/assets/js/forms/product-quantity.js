@@ -11,7 +11,8 @@ function updateReviewOrder() {
     var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
 
     if(ISTTime.getHours() > 12) {
-        deliveryDate = ISTTime.getDate() + 1;
+        newTime = new Date(ISTTime.getTime() + 24*60*60*1000);
+        deliveryDate = newTime.getDate();
     }
     else {
         deliveryDate = ISTTime.getDate();
