@@ -20,7 +20,7 @@ function updateReviewOrder() {
     deliveryMonth = ISTTime.getMonth() + 1;
     deliveryYear = ISTTime.getFullYear();
 
-    var finalText = plainText.concat(quantity.toString(), " gas cylinder(s) by ", deliveryDate, "-", deliveryMonth, "-", deliveryYear, " .<br>Please click 'Place Order' to complete your order.</b><br><button type='submit' class='btn-u btn-block' name='btn-place-order' id='btn-place-order' style='margin-top: 30px; width:125px;'>Place Order</button>" );
+    var finalText = plainText.concat(quantity.toString(), " gas cylinder(s) by ", deliveryDate, "-", deliveryMonth, "-", deliveryYear, " .<br>Please click 'Place Order' to complete your order.</b><br><button type='submit' class='btn-u btn-block' name='btn-place-order' id='btn-place-order' style='margin-top: 30px; width:125px;' onclick='javascript: disablePlaceOrderBtn();'>Place Order</button>" );
 
     document.getElementById('order-review').innerHTML = finalText;
 }

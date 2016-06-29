@@ -51,3 +51,7 @@ function validatePhoneNumber() {
 	}
 	submitButtonActivator();
 }
+
+function disablePlaceOrderBtn() {
+	document.getElementById('btn-place-order').disabled=true;
+}
