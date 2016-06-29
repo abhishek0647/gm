@@ -18,25 +18,22 @@ if($stmt->rowCount() == 1) {
 		$randstring .= $characters[rand(0, strlen($characters))];
 	}
 
-	$password = md5($randstring);
+	$upass = md5($randstring);
 
 	$passUpdate = $user_home->runQuery("UPDATE tbl_users SET userPass=:user_pass WHERE userEmail=:user_email_id");
-	$passUpdate->execute(array(":user_pass"=>$password, ":user_email_id"=>$email));
+	$passUpdate->execute(array(":user_pass"=>$upass, ":user_email_id"=>$email));
 
-	$contactUsName  = "GasMarket Support Team";
-	$contactUsText  = trim($_POST['contact-us-message']);
-
-	$to = "abhishek0647@gmail.com";
+	$to = $email;
 	$subject = "GasMarket Support";
-	$txt = $contactUsText."\n\nThanks & Regards,\n".$contactUsName;
+	$txt = "Hi ".$email."\n\nYour new password is ".$randstring."\n\n Please reach out to us if you are facing any issues\n\nThanks & Regards,\nGasMarket Support Team";
 	//$headers = "From: abhishek0647@gmail.com";
-	$headers = "From: ".$contactUsEmail;
+	$headers = "From: abhishek0647@gmail.com";
 
 	mail($to,$subject,$txt,$headers);
 
 	$user_home->redirect('forgot-password.php?status=success');
 }
 else {
-	$user_home->redirect('forgot-password.php?status=noUserFound')
+	$user_home->redirect('forgot-password.php?status=noUserFound');
 }
 ?>
